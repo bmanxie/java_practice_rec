@@ -176,21 +176,27 @@ public class ATM {
                     depositMoney();
                     break;
                 case "3":
-                    drawMoney();
                     // 取款
+                    drawMoney();
                     break;
                 case "4":
                     // 轉帳
+                    transferMoney();
                     break;
                 case "5":
                     // 密碼修改
-                    break;
+                    updatePassWord();
+                    return;
                 case "6":
                     // 退出
                     System.out.println(loginAcc.getUserName() + "登出系統成功!");
                     return; // 退出並結束當前方法
                 case "7":
                     // 註銷帳戶
+                    if(deleteAccount()){
+                        // 銷戶成功, 回到歡迎介面
+                        return;
+                    }
                     break;
                 default:
                     System.out.println("當前操作不存在，請確認");
@@ -264,6 +270,125 @@ public class ATM {
             }
         }
 
+    }
+
+    // 轉帳
+    private void transferMoney(){
+        System.out.println("===帳戶轉帳===");
+        // 1. 判斷系統是否存在其他帳戶
+        if (accounts.size() < 2 ){
+            System.out.println("當前帳戶只有一名，無其他轉帳對象");
+            return;
+        }
+
+        // 2. 判斷自己帳戶是否有錢
+        if (loginAcc.getMoney() == 0){
+            System.out.println("帳戶內沒有可轉帳的錢");
+            return;
+        }
+
+        while (true) {
+            // 3. 開始轉帳
+            System.out.println("輸入對方的卡號:");
+            String cardId = sc.next();
+
+            // 4. 判斷卡號是否正確
+            Account acc = getAccountByCardId(cardId);
+            if (acc == null) {
+                System.out.println("輸入的卡號不存在");
+            } else {
+                // 對方的卡號存在，繼續讓用戶輸入認證
+                String name = "*" + acc.getUserName().substring(1);
+                System.out.println("請輸入【" + name + "】的姓氏");
+                String preName = sc.next();
+                // 5. 判斷姓氏是否正確
+                if (acc.getUserName().startsWith(preName)) {
+                    // 認證通過
+                    System.out.println("輸入要轉帳的金額:");
+                    double money = sc.nextDouble();
+                    // 6. 判斷金額有無超過餘額
+                    if (loginAcc.getMoney() >= money){
+                        // 轉給對方
+                        // 更新自己的帳戶餘額
+                        loginAcc.setMoney(loginAcc.getMoney() - money);
+                        // 更新對方的帳戶餘額
+                        acc.setMoney(acc.getMoney() + money);
+                        System.out.println("轉帳成功");
+                        return; // 直接跳出轉帳方法
+                    }else {
+                        System.out.println("餘額不足，帳戶餘額:" + loginAcc.getMoney());
+                    }
+                } else {
+                    System.out.println("認證有誤");
+                }
+            }
+        }
+    }
+
+    // 帳戶密碼修改
+    private void updatePassWord() {
+        System.out.println("===修改密碼===");
+        // 1. 提醒用戶認證當前密碼
+        while (true) {
+        System.out.println("請輸入現在的密碼:");
+        String passWord = sc.next();
+        // 2. 認證密碼是否正確
+
+            if (loginAcc.getPassWord().equals(passWord)) {
+                // 認證通過
+                // 3. 開始修改密碼
+                while (true) {
+                    System.out.println("輸入新密碼:");
+                    String newPassWord = sc.next();
+
+                    System.out.println("再次輸入密碼:");
+                    String okPassWord = sc.next();
+
+                    if (!okPassWord.equals(newPassWord)) {
+                        System.out.println("兩次密碼不一致");
+                    } else if (newPassWord.equals(passWord)) {
+                        System.out.println("新舊密碼不可相同，請確認");
+                    } else{
+                        // 真正開始修改密碼
+                        loginAcc.setPassWord(newPassWord);
+                        System.out.println("密碼修改成功");
+                        return;
+                    }
+                }
+            }else {
+                System.out.println("當前密碼輸入錯誤");
+            }
+        }
+    }
+
+    // 註銷帳戶
+    private boolean deleteAccount(){
+        System.out.println("===進行註銷操作===");
+        // 1. 詢問是否要進行銷戶
+        System.out.println("操作一旦完成將無法回復，您確定要註銷帳戶嗎?y/n");
+        while (true) {
+            String command = sc.next();
+            switch (command){
+                case "y":
+                    // 確定銷戶
+                    // 2. 判斷用戶帳戶是否有餘額
+                    if (loginAcc.getMoney() == 0){
+                        // 可以進行
+                        accounts.remove(loginAcc);
+                        System.out.println("您的帳戶已成功註銷");
+                        return true;
+                    }else {
+                        System.out.println("帳戶內尚有餘額，無法進行註銷作業");
+                        return false;
+                    }
+                case "n":
+                    System.out.println("已取消註銷操作");
+                    return false;
+                default:
+                    System.out.println("輸入錯誤，請再次輸入:y/n");
+                    break;
+            }
+        }
     }
 
 }
