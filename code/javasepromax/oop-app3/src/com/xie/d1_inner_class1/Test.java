@@ -1,0 +1,9 @@
+package com.xie.d1_inner_class1;
+
+public class Test {
+    public static void main(String[] args) {
+        // 目標: 了解成員內部類和其特點
+        Outer.Inner in = new Outer().new Inner();
+        in.test();
+    }
+}
