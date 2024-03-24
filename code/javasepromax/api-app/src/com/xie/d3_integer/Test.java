@@ -16,7 +16,7 @@ public class Test {
         int a4 = a3;
 
         // 泛型和集合，不支持基本數據類型，只能支持引用類型數據
-        //ArrayList<int> list = new ArrayList<>();
+        // ArrayList<int> list = new ArrayList<>();
         ArrayList<Integer> list = new ArrayList<>();
         list.add(12); // 自動裝箱
         list.add(13); // 自動裝箱
