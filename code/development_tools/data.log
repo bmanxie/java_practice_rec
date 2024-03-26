@@ -1,0 +1,5 @@
+2024-03-27 00:37:46.616 [main] INFO  LogBackTest - 除法方法開始執行
+2024-03-27 00:37:46.616 [main] DEBUG LogBackTest - 參數a: 10
+2024-03-27 00:37:46.616 [main] DEBUG LogBackTest - 參數b: 5
+2024-03-27 00:37:46.616 [main] INFO  LogBackTest - 結果是:2
+2024-03-27 00:37:46.616 [main] INFO  LogBackTest - 執行成功

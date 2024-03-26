@@ -1,0 +1,24 @@
+/**
+ * 目標: 使用字節輸入流一次讀取文件的全部字節
+ */
+public class FileInputStreamTest3 {
+/**
+ * 目標: 使用字節輸入流一次讀取文件的全部字節
+ */
+public class FileInputStreamTest3 {
+/**
+ * 目標: 使用字節輸入流一次讀取文件的全部字節
+ */
+public class FileInputStreamTest3 {
+/**
+ * 目標: 使用字節輸入流一次讀取文件的全部字節
+ */
+public class FileInputStreamTest3 {
+/**
+ * 目標: 使用字節輸入流一次讀取文件的全部字節
+ */
+public class FileInputStreamTest3 {
+/**
+ * 目標: 使用字節輸入流一次讀取文件的全部字節
+ */
+public class FileInputStreamTest3 {

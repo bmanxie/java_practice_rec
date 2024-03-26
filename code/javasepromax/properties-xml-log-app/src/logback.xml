@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <!--
+        CONSOLE : 表示當前的日誌訊息是可以輸出到控制台的
+     -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!--輸出流對象 默認 System.out 改為 System.err-->
+        <target>System.out</target>
+        <encoder>
+            <!--格式化輸出: %d表示日期, %thread表示線程名, %-5level: 級別從左顯示5個字符寬度
+                %msg: 日誌訊息, %n是換行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %c [%thread] : %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--File是輸出的方向通向文件的-->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!--日誌輸出路徑-->
+        <file>D:/code/development_tools/data.log</file>
+        <!--指定日誌文件拆分和壓縮規則-->
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--通過指定壓縮文件名稱, 來確定分割文件方式-->
+            <fileNamePattern>D:/code/development_tools/log-%d{yyyy-MM-dd}.log%i.gz</fileNamePattern>
+            <!--文件拆分大小-->
+            <maxFileSize>1MB</maxFileSize>
+        </rollingPolicy>
+    </appender>
+
+    <!--
+    level:用來設置打印級別, 大小寫無關: TRACE, DEBUG, INFO, WARN, ERROR  |  ALL 和 OFF
+    , 默認debug
+    <root>可以包含零個或多個<appender-ref>元素, 標示這個輸出位置將會被本日誌級別控制。
+    -->
+    <root level="ALL">
+        <!-- 注意: 如果這裡不配置關聯打印位置，該位置將不會記錄日誌-->
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>

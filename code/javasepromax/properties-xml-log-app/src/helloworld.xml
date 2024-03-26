@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--註釋:以上抬頭聲明必須放在第一行，必須有-->
+<!--根標籤只能有一個-->
+<users>
+    <user id="1" desc="第一個用戶">
+        <name>張無忌</name>
+        <sex>男</sex>
+        <地址>光明頂</地址>
+        <password>taigi</password>
+        <data> 3 &lt; 2 &amp;&amp; 5 &gt; 4 </data>
+        <data2>
+            <![CDATA[
+            3 < 2 && 5 > 4
+            ]]>
+        </data2>
+    </user>
+    <people>很多人</people>
+    <user id="2">
+        <name>張三丰</name>
+        <sex>男</sex>
+        <地址>武當山</地址>
+        <password>wudang</password>
+        <data>3 &lt; 2 &amp;&amp; 5 &gt; 4</data>
+    </user>
+</users>
